@@ -1,32 +1,21 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { useTicker } from './hooks/ticker'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [int, setInt] = useState(1000)
+
+  const [num, stop, start] = useTicker(int)
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+      <h2>This is a Ticker: {num}</h2>
+      <p>Current Speed: {(1000/int).toFixed(2)} / sec</p>
+      <p>
+        <button onClick={() => setInt(Math.max(Math.floor(int/2), 50))}>Speed up</button>
+        <button onClick={() => setInt(int+500)}>Speed down</button>
+        <button onClick={stop}>Stop</button>
+        <button onClick={start}>Start</button>
       </p>
     </>
   )
